@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import { createBooking } from "../../api/auth";
+import { createBooking } from "../../api/auth";
 
 const BookingForm = ({
   onBookingCreated,
@@ -37,12 +37,12 @@ const BookingForm = ({
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
 
-    // try {
-    //   const resp = await createBooking(bookingFormData);
-    //   onBookingCreated(resp.data);
-    // } catch (error) {
-    //   setError(error);
-    // }
+    try {
+      const resp = await createBooking(bookingFormData);
+      onBookingCreated(resp.data);
+    } catch (error) {
+      setError(error);
+    }
   };
   return (
     <div>

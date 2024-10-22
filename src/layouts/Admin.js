@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useLocation, Route, Routes } from "react-router-dom";
+import { useLocation, Outlet } from "react-router-dom";
 
 import AdminNavbar from "components/Navbars/AdminNavbar";
 import Footer from "components/Footer/Footer";
@@ -7,7 +7,6 @@ import Sidebar from "components/Sidebar/Sidebar";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";
-
 import sidebarImage from "assets/img/sidebar-3.jpg";
 
 function Admin() {
@@ -16,22 +15,6 @@ function Admin() {
   const [hasImage, setHasImage] = useState(true);
   const location = useLocation();
   const mainPanel = useRef(null);
-
-  const getRoutes = (routes) => {
-    return routes.map((prop, key) => {
-      if (prop.layout === "/admin") {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            element={<prop.component />} // Use element prop for v6
-            key={key}
-          />
-        );
-      } else {
-        return null;
-      }
-    });
-  };
 
   useEffect(() => {
     document.documentElement.scrollTop = 0;
@@ -56,7 +39,8 @@ function Admin() {
         <div className="main-panel" ref={mainPanel}>
           <AdminNavbar />
           <div className="content">
-            <Routes>{getRoutes(routes)}</Routes> {/* Replace Switch with Routes */}
+            {/* Renders child routes using Outlet */}
+            <Outlet />
           </div>
           <Footer />
         </div>

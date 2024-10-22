@@ -27,14 +27,20 @@ export const createBooking = async (data) => {
   }
 };
 
-export const getAllBokkings = async (params) => {
+export const getAllBokkings = async (pageNumber, limit) => {
   try {
-    const resp = await axiosInstance.get("/getallbooking", params);
+    const resp = await axiosInstance.get("/getallbooking", {
+      params: {
+        page: pageNumber,
+        limit: limit,
+      },
+    });
     return resp.data;
   } catch (error) {
-    throw error.resp.data;
+    throw error.response.data;
   }
 };
+
 
 export const deleteBooking =async(id)=>{
 try {
