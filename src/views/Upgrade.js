@@ -21,10 +21,9 @@ function Upgrade() {
           <Col className="ml-auto mr-auto" md="8">
             <Card>
               <div className="header text-center">
-                <h4 className="title">Light Bootstrap Dashboard PRO React</h4>
+                <h4 className="title">Hall Booing </h4>
                 <p className="category">
-                  Are you looking for more components? Please check our Premium
-                  Version of Light Bootstrap Dashboard React.
+               Book Your Date
                 </p>
                 <br></br>
               </div>

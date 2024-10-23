@@ -41,11 +41,19 @@ export const getAllBokkings = async (pageNumber, limit) => {
   }
 };
 
+export const getAllBokkingsCalendar = async () => {
+  try {
+    const resp = await axiosInstance.get("/getallcustomer");
+    return resp.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
 
-export const deleteBooking =async(id)=>{
-try {
-  const resp = await axiosInstance.delete(`/deletebooking/${id}`)
-} catch (error) {
-  throw error.resp
-}
-}
+export const deleteBooking = async (id) => {
+  try {
+    const resp = await axiosInstance.delete(`/deletebooking/${id}`);
+  } catch (error) {
+    throw error.resp;
+  }
+};

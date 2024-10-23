@@ -4,7 +4,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import BookingForm from "../BookingForm/BookingForm";
 import "../../styles/modal.css";
-import { getAllBokkings } from "../../api/auth";
+import { getAllBokkingsCalendar } from "../../api/auth";
 
 const Calendar = () => {
   const calendarComponentRef = useRef(null);
@@ -15,8 +15,9 @@ const Calendar = () => {
   useEffect(() => {
     const getAllBooking = async () => {
       try {
-        const resp = await getAllBokkings();
+        const resp = await getAllBokkingsCalendar();
         const bookingData = resp?.data;
+        console.log('resdata',resp)
         const events = bookingData?.map((booking) => ({
           title: booking.customerName,
           start: booking.bookingDate,

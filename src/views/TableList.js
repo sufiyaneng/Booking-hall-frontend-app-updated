@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import { getAllBokkings } from '../api/auth';
+import moment from 'moment/moment';
 
 function TableList() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -10,11 +11,18 @@ function TableList() {
   const [pageSize, setPageSize] = useState(5); // Limit (page size)
 
   const getAll = async (pageNumber = 1, limit = 5) => {
-    const res = await getAllBokkings(pageNumber, limit); // Send page and limit
-    setTotalPages(res?.totalPages || 1);
-    setCurrentPage(res?.currentPage || 1);
-    setProducts(res?.data || []);
+    try {
+      const res = await getAllBokkings(pageNumber, limit);
+      console.log('API response:', res);
+      setTotalPages(res?.totalPages || 1);
+      setCurrentPage(res?.currentPage || 1);
+      setProducts(res?.data || []); // Ensure safe access to res.data
+    } catch (error) {
+      console.error('Error fetching bookings:', error);
+      setProducts([]); // Set an empty array if there's an error
+    }
   };
+  
 
   useEffect(() => {
     getAll(currentPage, pageSize); // Fetch data for the current page and page size
@@ -30,7 +38,15 @@ function TableList() {
     { dataField: 'customerName', text: 'Customer Name', sort: true },
     { dataField: 'phone', text: 'Phone', sort: true },
     { dataField: 'description', text: 'Description', sort: true },
-    { dataField: 'bookingDate', text: 'Booking Date', sort: true },
+    // { dataField: 'bookingDate', text: 'Booking Date', sort: true },
+    {
+      dataField: 'bookingDate',
+      text: 'Booking Date',
+      sort: true,
+      formatter: (cell) => {
+        return moment(cell).format('DD-MM-YYYY'); // Format date using moment in DD-MM-YY format
+      },
+    },
     { dataField: 'eventType', text: 'Event Type', sort: true },
     { dataField: 'address', text: 'Address' },
   ];
@@ -57,7 +73,7 @@ function TableList() {
 
   return (
     <div className="App">
-      <h5>React Bootstrap Table with Custom Search</h5>
+      <h5>Booking List</h5>
 
       <div className="mb-3">
         <input
